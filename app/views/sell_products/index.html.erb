@@ -1,0 +1,26 @@
+<p style='color:red'> <%= flash[:sell] %> </p>
+<h1>Products</h1>
+  <%= form_with url: "/sell_products", method: :get do |form| %>
+<%= form.select :choice ,[:name, :alphanumeric_id] %>
+  <%= form.text_field :name %>
+  <%= form.submit "Search" %>
+<% end %>
+<ul>
+  <% if @products.present? %>
+    <% @products.each do |product| %>
+      <li>
+          Name:<%= product.name %><br>
+          Price:<%= product.price  %><br>
+          Image:  <%= image_tag product.image, height: 100 %><br>
+          Description:<%= product.description %><br>
+          Product_id:<%= product.alphanumeric_id %><br>
+          <%= button_to "edit", edit_sell_product_path(product.id), method: :get %>
+          <%= button_to "delete", sell_product_path(product.id), method: :delete %>
+        </li>
+    <% end %>
+  <% else %>
+    <%     flash[:message] = "No Added Product For Sell " %>
+    <p style='color:red'> <%= flash[:message] %> </p>
+  <%end%>
+</ul>
+  <%= button_to "+ Sell", new_sell_product_path, method: :get %><br>

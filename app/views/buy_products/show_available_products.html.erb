@@ -1,0 +1,35 @@
+<%= render partial: 'buy_products/navbar'%>
+<p style='color:red'> <%= flash[:buy] %> </p>
+<%= button_to "All Cateories", "/categories", method: :get %><br>
+<h1>Products</h1>
+<ul>
+  <% if @products.present? %>
+    <% @products.each do |product| %>
+      <li>
+          Name:<%= product.name %><br>
+          Price:<%= product.price  %><br>
+          Image:  <%= image_tag product.image, height: 100 %> <br>
+          Description:<%= product.description %><br>
+          Product_id:<%= product.alphanumeric_id %><br>
+          <% if user_signed_in? %> 
+            <% unless  current_user.id == product.user_id %>
+              <%= button_to "Buy", buy_buy_product_path(product.id), method: :get %>
+            <% end %>
+          <%else%> 
+            <% flash[:login] = 'First Login Youself' %>
+            <%= button_to "Buy", new_user_session_path %><br>
+          <%end%>
+        </li>
+    <% end %>
+  <% else %>
+    <%     flash[:message] = "No Product Available For Sell " %>
+    <p style='color:red'> <%= flash[:message] %> </p>
+  <%end%>
+</ul>
+<% if user_signed_in? %> 
+  <%= button_to "+ Sell", new_sell_product_path, method: :get %><br>
+<%else%> 
+  <% flash[:login] = 'First Login Youself' %>
+  <%= button_to "+ Sell", new_user_session_path %><br>
+<%end%>
+

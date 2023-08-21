@@ -1,0 +1,93 @@
+<style>
+   body {
+      background-color: white;
+   }
+   .navbar {
+  background-color: #7f9799;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 12px;
+}
+.navbar-title {
+  font-size: 24px;
+  margin: 0;
+}
+.navbar-buttons {
+  display: flex;
+  gap: 10px;
+}
+.navbar-button {
+  background-color: #002f34;
+  color: #FFFFFF;
+  border: none;
+  padding: 12px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.navbar-button:hover {
+  background-color: #406367;
+}
+h1 {
+  color: #002f34;
+}
+p {
+  text-align: center;
+  margin-top: 70px;
+  margin-left: 700px;
+  font-size: 20px;
+  color: navy;
+}
+.abc {
+    margin-left: 800px;
+    color: black;
+    background-color: green;
+    font-weight: bold;
+}
+.flash {
+    margin-left: 800px;
+    color: brown;
+}
+</style>
+<section >
+<nav class="navbar">
+  <h1 class="navbar-title">Olx</h1>
+    <%= form_with url: "/buy_products/show_available_products", method: :get do |form| %>
+    <div class="input-group">
+      <%= form.select :choice ,[:name, :category_name], class:"form-select" %>
+      <%= form.text_field :name, class:"form-control" %>&nbsp;
+      <%=form.submit "Search", class:"btn btn-outline-secondary" %>
+   </div>
+  <% end %>
+  
+  <div class="dropdown">
+         <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          All Categories
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <%= link_to "car",class:"p-2  text-dark text-decoration-none dropdown-item" %>
+           <li><hr class="dropdown-divider"></li>
+          <%= link_to "My Product",class:"p-2  text-dark text-decoration-none dropdown-item" %>
+           <li><hr class="dropdown-divider"></li>
+          <%= link_to "My Purchasing",class:"p-2  text-dark text-decoration-none dropdown-item" %>
+          </ul>
+          </div>
+  </div>
+   <div class="navbar-buttons">
+     <% if user_signed_in?%>
+        <%= button_to"Sign out", destroy_user_session_path, method: :delete ,class:" navbar-button"%>      
+        <%else%>
+            <%= link_to"Sign in", new_user_session_path,class:"navbar-button" %>
+            <%= link_to"Sign up", new_user_registration_path,class:"navbar-button" %>
+      <%end%>
+   </div>
+</nav>
+</section>
+
+
+
+
+
+
