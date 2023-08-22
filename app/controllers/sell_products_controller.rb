@@ -17,7 +17,9 @@ class SellProductsController < ApplicationController
   end
 
   def show
-    render json: @product
+    unless @product.present?
+      render 'new_sell_product'
+    end
   end
 
   def index

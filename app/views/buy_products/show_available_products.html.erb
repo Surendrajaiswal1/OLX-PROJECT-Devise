@@ -1,35 +1,43 @@
+<style>
+  .card{
+    width:250px;
+  }
+  .flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-container > div {
+  background-color: #F1F1F1;
+  height:280px;
+  width: 270px;
+  margin: 25px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 20px;
+}
+</style>
 <%= render partial: 'buy_products/navbar'%>
-<p style='color:red'> <%= flash[:buy] %> </p>
-<%= button_to "All Cateories", "/categories", method: :get %><br>
-<h1>Products</h1>
-<ul>
-  <% if @products.present? %>
-    <% @products.each do |product| %>
-      <li>
-          Name:<%= product.name %><br>
-          Price:<%= product.price  %><br>
-          Image:  <%= image_tag product.image, height: 100 %> <br>
-          Description:<%= product.description %><br>
-          Product_id:<%= product.alphanumeric_id %><br>
-          <% if user_signed_in? %> 
-            <% unless  current_user.id == product.user_id %>
-              <%= button_to "Buy", buy_buy_product_path(product.id), method: :get %>
-            <% end %>
-          <%else%> 
-            <% flash[:login] = 'First Login Youself' %>
-            <%= button_to "Buy", new_user_session_path %><br>
-          <%end%>
-        </li>
-    <% end %>
-  <% else %>
-    <%     flash[:message] = "No Product Available For Sell " %>
-    <p style='color:red'> <%= flash[:message] %> </p>
-  <%end%>
-</ul>
-<% if user_signed_in? %> 
-  <%= button_to "+ Sell", new_sell_product_path, method: :get %><br>
-<%else%> 
-  <% flash[:login] = 'First Login Youself' %>
-  <%= button_to "+ Sell", new_user_session_path %><br>
-<%end%>
 
+<div class="flex-container">
+<% @products.each do |product| %>
+  <div>
+  <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+  <%= image_tag product.image,class:"card-img-top",width:"200",
+     height:"140"%><br>
+  <div class="card-body">
+    <span class="card-title"><%= product.name%></span><br>
+    Price:<%= product.price%><br>
+    Description:<%= truncate(product.description, length: 10)%><br>
+    <%= link_to"view",sell_product_path(product),method: :get ,class:"btn btn-outline-secondary"%>
+    <% if user_signed_in? %>
+        <% unless current_user.id == product.user_id %>
+          <%= link_to"buy",buy_products_path,method: :get, class:"btn btn-outline-secondary"%>
+        <%end%>
+    <%else%>
+      <% flash[:login] = 'First Login Youself' %>
+      <%= link_to"buy",new_user_session_path,method: :get, class:"btn btn-outline-secondary"%>
+    <%end%>
+  </div>
+  </div>
+    <%end %>
+</div>

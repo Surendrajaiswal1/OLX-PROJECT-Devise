@@ -56,25 +56,30 @@ p {
   <h1 class="navbar-title">Olx</h1>
     <%= form_with url: "/buy_products/show_available_products", method: :get do |form| %>
     <div class="input-group">
-      <%= form.select :choice ,[:name, :category_name], class:"form-select" %>
-      <%= form.text_field :name, class:"form-control" %>&nbsp;
-      <%=form.submit "Search", class:"btn btn-outline-secondary" %>
+      <%= form.select :choice ,[:name, :category_name], class:"form-select" %>&nbsp;
+      <%= form.text_field :name, placeholder: "Find Cars,Bike,Furniture..", class:"form-control" %>&nbsp;
+      <%=form.submit "Search", class:"navbar-button btn btn-outline-secondary" %>
    </div>
   <% end %>
   
   <div class="dropdown">
-         <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+         <button class="navbar-button  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
           All Categories
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <%= link_to "car",class:"p-2  text-dark text-decoration-none dropdown-item" %>
-           <li><hr class="dropdown-divider"></li>
-          <%= link_to "My Product",class:"p-2  text-dark text-decoration-none dropdown-item" %>
-           <li><hr class="dropdown-divider"></li>
-          <%= link_to "My Purchasing",class:"p-2  text-dark text-decoration-none dropdown-item" %>
+          <% Category.all.each do |category| %>
+          <%= link_to category.category_name,category_path(category),class:"p-2  text-dark text-decoration-none dropdown-item" %>
+          <%end%>
           </ul>
-          </div>
   </div>
+    <div class="navbar-buttons">
+      <% if user_signed_in? %>
+        <%= button_to "+ Sell", new_sell_product_path, method: :get,class:"navbar-button" %><br>
+      <%else%>
+        <% flash[:login] = 'First Login Youself' %>
+        <%= button_to "+ Sell", new_user_session_path,class:"navbar-button" %><br>
+      <%end%>
+    </div>
    <div class="navbar-buttons">
      <% if user_signed_in?%>
         <%= button_to"Sign out", destroy_user_session_path, method: :delete ,class:" navbar-button"%>      
