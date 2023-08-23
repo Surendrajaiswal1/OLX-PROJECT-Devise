@@ -8,7 +8,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 12px;
+  padding: 7px 12px;
 }
 .navbar-title {
   font-size: 24px;
@@ -22,7 +22,7 @@
   background-color: #002f34;
   color: #FFFFFF;
   border: none;
-  padding: 12px 12px;
+  padding: 10px 12px;
   border-radius: 4px;
   text-decoration: none;
   cursor: pointer;
@@ -50,14 +50,23 @@ p {
     margin-left: 800px;
     color: brown;
 }
+.prod{
+  display: flex;
+  justify-content: end;
+}
+.a{
+  padding: 6px 6px;
+  border-radius: 13px;
+  background-color: #6c757d;
+}
 </style>
 <section >
-<nav class="navbar">
-  <h1 class="navbar-title">Olx</h1>
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <h1>Olx</h1>
     <%= form_with url: "/buy_products/show_available_products", method: :get do |form| %>
     <div class="input-group">
-      <%= form.select :choice ,[:name, :category_name], class:"form-select" %>&nbsp;
-      <%= form.text_field :name, placeholder: "Find Cars,Bike,Furniture..", class:"form-control" %>&nbsp;
+      <%= form.select :choice ,[:name, :product_id], class:"form-select" %>&nbsp;
+      <%= form.text_field :name, placeholder: "Find Cars,Bike,Furniture,Electron..", class:"form-control" %>&nbsp;
       <%=form.submit "Search", class:"navbar-button btn btn-outline-secondary" %>
    </div>
   <% end %>
@@ -90,6 +99,16 @@ p {
    </div>
 </nav>
 </section>
+<div class= "prod">
+<% if user_signed_in? %>
+  <nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+      <%= link_to"Your Products", sell_products_path,class:"a navbar-button" %>
+      <%= link_to"Buy Products", buy_products_path,class:"a navbar-button" %>
+    </form>
+  </nav>
+<%end%>
+</div>
 
 
 

@@ -17,7 +17,7 @@
         </li>
     <% end %>
   <% else %>
-    <%     flash[:message] = "Order History Is Empty" %>
+    <%     flash[:message] = "You Need To Buy First" %>
     <p style='color:red'> <%= flash[:message] %> </p>
   <%end%>
 </ul>

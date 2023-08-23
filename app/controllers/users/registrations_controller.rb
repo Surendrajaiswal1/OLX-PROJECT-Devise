@@ -13,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @user = User.new(set_params)
     if @user.save
-      redirect_to root_path
+      redirect_to new_user_session_path
     else
       render 'new'
     end

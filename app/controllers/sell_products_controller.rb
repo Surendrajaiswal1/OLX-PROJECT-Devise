@@ -38,7 +38,6 @@ class SellProductsController < ApplicationController
   end
 
   def update
-    byebug
     unless @product.update(set_params)
       flash[:sell] = 'Updation failed'
     end
