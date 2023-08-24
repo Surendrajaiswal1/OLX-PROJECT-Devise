@@ -1,4 +1,4 @@
-<p style='color:red'> <%= flash[:view] %> </p>
+<%= render partial: 'buy_products/navbar'%>
 <style>
   .card{
     width:250px;
@@ -26,10 +26,13 @@
     <h1>Name:- <%= @product.name%></h1>
     Price:- <%= @product.price%><br>
     Description:- <%=@product.description%><br>
-    Produict Id:- <%=@product.alphanumeric_id%><br><br>
+    Produict Id:- <%=@product.alphanumeric_id%><br>
     <% if user_signed_in? %>
-        <% unless current_user.id == @product.user_id %>
-          <%= link_to"buy",buy_products_path,method: :get, class:"btn btn-outline-secondary"%>
+      <% unless current_user.id == @product.user_id %>
+        <%= link_to"buy",buy_buy_product_path(@product.id),method: :get, class:"btn btn-outline-secondary"%>
+      <%else%>
+        <%= link_to "edit", edit_sell_product_path(@product.id), method: :get,class:"btn btn-outline-secondary" %>
+        <%= button_to "delete", sell_product_path(@product.id), method: :delete,class:"btn btn-outline-secondary" %>
         <%end%>
     <%else%>
       <% flash[:login] = 'First Login Youself' %>
@@ -38,3 +41,4 @@
   </div>
   </div>
 </div>
+<p style='color:red'> <%= flash[:view] %> </p>

@@ -1,24 +1,43 @@
-<ul>
+<style>
+  .card{
+    width:250px;
+  }
+  .flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-container > div {
+  background-color: #F1F1F1;
+  height:280px;
+  width: 270px;
+  margin: 25px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 20px;
+}
+</style>
+<%= render partial: 'buy_products/navbar'%>
+<div class="flex-container">
   <% if @products.present? %>
     <% @products.each do |product| %>
-      <li>
-          Name:<%= product.name %><br>
-          Price:<%= product.price  %><br>
-          Image:  <%= image_tag product.image, height: 100 %> <br>
-          Description:<%= product.description %><br>
-          Product_id:<%= product.alphanumeric_id %><br>
-          <% if user_signed_in? %> 
-            <% unless  current_user.id == product.user_id %>
-              <%= button_to "Buy", buy_buy_product_path(product.id), method: :get %>
-            <% end %>
-          <%else%> 
-            <% flash[:login] = 'First Login Youself' %>
-            <%= button_to "Buy", new_user_session_path %><br>
-          <%end%>
-        </li>
-    <% end %>
-  <% else %>
-    <%     flash[:message] = "From This Category No Product Was Available For Sell " %>
-    <p style='color:red'> <%= flash[:message] %> </p>
+      <div>
+      <%= image_tag product.image,class:"card-img-top",width:"200",
+         height:"140"%><br>
+      <div class="card-body">
+        <span class="card-title"><%= product.name%></span><br>
+        Price:<%= product.price%><br>
+        Description:<%= truncate(product.description, length: 10)%><br>
+        <%= link_to"view",view_particular_product_buy_product_path(product),method: :get ,class:"btn btn-outline-secondary"%>
+        <% if user_signed_in? %>
+          <% unless current_user.id == product.user_id %>
+          <%= link_to"buy",buy_buy_product_path(product),method: :get, class:"btn btn-outline-secondary"%>
+        <%end%>
+        <%else%>
+          <% flash[:login] = 'First Login Youself' %>
+          <%= link_to"buy",new_user_session_path,method: :get, class:"btn btn-outline-secondary"%>
+        <%end%>
+      </div>
+      </div>
+    <%end %>
   <%end%>
-</ul>
+</div>

@@ -1,5 +1,8 @@
-<p style='color:red'> <%= flash[:add] %> </p>
+<h style='color:red'> <%= flash[:add] %> </h1>
 <style>
+  .body{
+    background-color: black;
+  }
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
 font-size: 1rem;
 line-height: 2.15;
@@ -54,12 +57,10 @@ border-radius: 7px;
                   </div>
                   <div class="col-md-6 mb-4">
                     <div class="form-outline">
-                      <%= form.file_field :name,id:"form3Example1m",class:"form-control form-control-lg" %>
+                      <%= form.file_field :image,id:"form3Example1m",class:"form-control form-control-lg" %>
                     </div>
                   </div>
               </div>
-
-
                 <div class="abc row">
                   <div class="col-md-6 mb-4">
 
