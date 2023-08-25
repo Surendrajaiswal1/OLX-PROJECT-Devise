@@ -1,6 +1,9 @@
-<p style='color:red'> <%= flash[:sell] %> </p>
+<%= render partial: 'buy_products/navbar'%>
 <h1>Your Products</h1>
 <style>
+  p{
+    margin-left: 327px;
+  }
   .card{
     width:250px;
   }
@@ -18,13 +21,14 @@
   font-size: 20px;
 }
 </style>
+<p style='color:red'> <%= flash[:sell] %> </p>
 
 <%= form_with url: "/sell_products", method: :get do |form| %>
   <%= form.select :choice ,[:name, :alphanumeric_id] %>
   <%= form.text_field :name %>
   <%= form.submit "Search" %>
 <% end %>
-<%= button_to "+ Sell", new_sell_product_path, method: :get %><br>
+<%= button_to "+ Sell", new_sell_product_path, method: :get, class:"btn btn-outline-secondary" %><br>
 
 <div class="flex-container">
   <% if @products.present? %>
@@ -36,7 +40,7 @@
         <span class="card-title"><%= product.name%></span><br>
         Price:<%= product.price%><br>
         Description:<%= truncate(product.description, length: 10)%><br>
-        <%= link_to"view",view_particular_product_buy_product_path(product),method: :get ,class:"btn btn-outline-secondary"%>
+        <%= link_to"view",view_particular_product_buy_product_path(product),method: :get ,class:"button btn btn-outline-secondary"%>
       </div>
       </div>
     <%end %>

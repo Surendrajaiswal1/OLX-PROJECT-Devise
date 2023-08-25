@@ -1,6 +1,10 @@
-<p style='color:red'> <%= flash[:add] %> </p>
+<%= render partial: 'buy_products/navbar'%>
 <h1>Buy Products</h1>
+<p style='color:red'> <%= flash[:add] %> </p>
 <style>
+  p{
+    margin-left: 100px;
+  }
   .card{
     width:250px;
   }
@@ -18,7 +22,6 @@
   font-size: 20px;
 }
 </style>
-
 <div class="flex-container">
   <% if @product.present? %>
     <% @product.each do |product| %>
@@ -37,4 +40,4 @@
     <p style='color:red'> <%= flash[:message] %> </p>
   <%end%>
 </div>
-<%= button_to "Buy",show_available_products_buy_products_path, method: :get %><br>
+<%= button_to "Buy",show_available_products_buy_products_path, method: :get, class:"btn btn-outline-secondary"%><br>

@@ -1,4 +1,8 @@
 class SellProduct < ApplicationRecord
+  validates :name,length: {minimum: 2}
+  validates :price,presence: true, :numericality => true
+  validates :description,presence: true,length: {minimum: 10}
+  validates :image,presence: true
   belongs_to :user
   belongs_to :category
   before_save :set_unique_id

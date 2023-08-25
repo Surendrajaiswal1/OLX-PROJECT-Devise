@@ -12,7 +12,7 @@ class SellProductsController < ApplicationController
       redirect_to show_available_products_buy_products_path
     else
       flash[:add] = 'Product was not added '
-      render 'new_sell_product'
+      render '/sell_products/new'
     end
   end
 
